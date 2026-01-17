@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/homepage'
+import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import { Toaster } from "react-hot-toast"
@@ -9,10 +9,6 @@ import bgImage from "./assets/bgImage2.png";
 
 const App = () => {
   const { authUser } = useContext(AuthContext)
-
-  if (loading) {
-    return <div className="text-black p-4 bg-gray-200">Loading...</div>;
-  }
 
   return (
     <div
