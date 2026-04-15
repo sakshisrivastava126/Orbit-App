@@ -38,7 +38,11 @@ io.on("connection", (socket)=>{
 
 //Middleware setup
 app.use(express.json({limit: "4mb"}))
-app.use(cors());
+
+app.use(cors({
+    origin: [process.env.FRONTEND_URL],
+    credentials: true
+}));
 
 //route setup
 app.use("/api/status", (req, res)=> res.send("Server is live"));
@@ -46,7 +50,15 @@ app.use("/api/auth", userRouter);
 app.use("/api/messages", messageRouter)
 
 //connect to mongodb
-await connectDB();
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, ()=> console.log("Server is running on port: "+PORT ));
+
+const startServer = async () => {
+    await connectDB();
+
+    server.listen(PORT, () => {
+        console.log("Server is running on port: " + PORT);
+    });
+};
+
+startServer();
